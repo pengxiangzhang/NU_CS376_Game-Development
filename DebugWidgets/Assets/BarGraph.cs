@@ -105,6 +105,7 @@ public class BarGraph : MonoBehaviour
             color = Color.red;
             overflowValue = Min;
         }
+
         SetWidthPercent(overflowValue, color);
         Text.text = $"{gameObject.name} : {value}";
         // FIXME: if value is out of range (less than Min, greater than Max),
@@ -137,12 +138,12 @@ public class BarGraph : MonoBehaviour
         Vector3 ls = BarTransform.localScale;
         if (signedDisplay)
         {
-            ls.x = value /2;
+            ls.x = value / Max / 2;
             BarTransform.localScale = ls;
         }
         else
         {
-            ls.x = value;
+            ls.x = value / Max;
             BarTransform.localScale = ls;
         }
     }
@@ -191,15 +192,11 @@ public class BarGraph : MonoBehaviour
         go.name = name;
 
         // FIXME: Get the BarGraph component from the game object we just made
-            var bgComponent = (BarGraph)go.GetComponent(typeof(BarGraph));  // Change null here
+        var bgComponent = (BarGraph)go.GetComponent(typeof(BarGraph));  // Change null here
 
         // FIXME set bgComponent's Min and Max fields to min and max
         bgComponent.Max = max;
         bgComponent.Min = min;
-        if (name == "Axis 6")
-        {
-            Debug.Log("HAHA");
-        }
         // Add the BarGraph component to the table
         BarGraphTable[name] = bgComponent;
 
