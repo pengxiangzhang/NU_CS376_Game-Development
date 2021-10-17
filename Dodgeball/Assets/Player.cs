@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     {
         Vector2 UserMovement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         rigidBody.AddForce(UserMovement * EnginePower);
-        float UserRotate = Input.GetAxis("Aim");
+        float UserRotate = Input.GetAxis("Rotate");
         rigidBody.angularVelocity = UserRotate * RotateSpeed;
     }
 
