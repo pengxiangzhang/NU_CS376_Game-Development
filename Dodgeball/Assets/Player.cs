@@ -43,7 +43,8 @@ public class Player : MonoBehaviour
     // ReSharper disable once UnusedMember.Local
     void Update()
     {
-        if (Input.GetButtonDown("Fire")) {
+        if (Input.GetButtonDown("Fire"))
+        {
             Vector3 PlayerFace = transform.right;
             Vector3 PlayerLocation = transform.position;
             GameObject fire = Instantiate(OrbPrefab, PlayerLocation + PlayerFace, Quaternion.identity);

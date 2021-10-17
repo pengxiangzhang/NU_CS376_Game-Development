@@ -22,7 +22,8 @@ public class Orb : MonoBehaviour
     // ReSharper disable once UnusedMember.Local
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name != "Orb(Clone)") {
+        if (collision.gameObject.name != "Orb(Clone)")
+        {
             Destroy(gameObject);
             //Destroy(collision.gameObject);
         }

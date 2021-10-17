@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour
     {
         var offsetToPlayer = OffsetToPlayer;
         var distanceToPlayer = offsetToPlayer.magnitude;
-        var controlSign = distanceToPlayer > ApproachDistance ? 1 : -1; 
+        var controlSign = distanceToPlayer > ApproachDistance ? 1 : -1;
         rigidBody.AddForce(controlSign * (EnginePower / distanceToPlayer) * offsetToPlayer);
     }
 

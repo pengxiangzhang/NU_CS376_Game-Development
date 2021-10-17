@@ -7,7 +7,7 @@ using UnityEngine;
 public class Respawner : MonoBehaviour
 {
     public float FreeRadius = 10;
-    
+
     /// <summary>
     /// If this is called, we're off screen, so move the object to a new location
     /// and zero out its velocity.

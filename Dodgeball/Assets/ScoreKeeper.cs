@@ -31,7 +31,7 @@ public class ScoreKeeper : MonoBehaviour
     /// Text component for displaying the score
     /// </summary>
     private TMP_Text scoreDisplay;
-    
+
     /// <summary>
     /// Initialize Singleton and ScoreDisplay.
     /// </summary>
