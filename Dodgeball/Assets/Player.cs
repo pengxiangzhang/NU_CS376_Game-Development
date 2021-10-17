@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     /// How fast our engines can accelerate us
     /// </summary>
     public float EnginePower = 1;
-    
+
     /// <summary>
     /// How fast we turn in place
     /// </summary>
@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
     /// </summary>
     public float OrbVelocity = 10;
 
+    private Rigidbody2D rigidBody;
+
+    void Start()
+    {
+        rigidBody = GetComponent<Rigidbody2D>();
+    }
 
     /// <summary>
     /// Fire if the player is pushing the button for the Fire axis
@@ -37,7 +43,14 @@ public class Player : MonoBehaviour
     // ReSharper disable once UnusedMember.Local
     void Update()
     {
-        // TODO
+        if (Input.GetButtonDown("Fire")) {
+            Vector3 PlayerFace = transform.right;
+            Vector3 PlayerLocation = transform.position;
+            GameObject fire = Instantiate(OrbPrefab, PlayerLocation + PlayerFace, Quaternion.identity);
+            Rigidbody2D rb = fire.GetComponent<Rigidbody2D>();
+            rb.velocity = (rb.transform.position - PlayerLocation) * OrbVelocity;
+        }
+
     }
 
     /// <summary>
@@ -49,7 +62,10 @@ public class Player : MonoBehaviour
     // ReSharper disable once UnusedMember.Local
     void FixedUpdate()
     {
-        // TODO
+        Vector2 UserMovement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        rigidBody.AddForce(UserMovement * EnginePower);
+        float UserRotate = Input.GetAxis("Aim");
+        rigidBody.angularVelocity = UserRotate * RotateSpeed;
     }
 
     /// <summary>
@@ -60,4 +76,6 @@ public class Player : MonoBehaviour
     {
         ScoreKeeper.ScorePoints(-1);
     }
+
+
 }
