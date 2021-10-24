@@ -2,12 +2,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreKeeper : MonoBehaviour {
+public class ScoreKeeper : MonoBehaviour
+{
     private static float score;  // everyone has the same score
     private static Text scoreText; // everyone has the same text
 
     // Use this for initialization
-    internal void Start () {
+    internal void Start()
+    {
         scoreText = GetComponent<Text>();
         UpdateText();
 

@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 /// <summary>
 /// Controls slingshot-style launching of projectile.
 /// This component lives inside the projectile, not the catapult.
 /// </summary>
-public class ProjectileThrower : MonoBehaviour {
+public class ProjectileThrower : MonoBehaviour
+{
 
     /// <summary>
     /// Cached copy of the RigidBody2D so we don't have to keep looking it up.
@@ -16,12 +18,13 @@ public class ProjectileThrower : MonoBehaviour {
     /// <summary>
     /// The spring attached the projectile to the catapult base
     /// </summary>
-    private SpringJoint2D springJoint; 
+    private SpringJoint2D springJoint;
     /// <summary>
     /// Where the spring attaches to the catapult.
     /// Initialized to the initial location of the projectile.
     /// </summary>
     private Vector3 springAttachmentPoint;
+    public GameObject targets;
 
     /// <summary>
     /// Where we are in the ready-aim-fire sequence.
@@ -71,21 +74,36 @@ public class ProjectileThrower : MonoBehaviour {
     /// <returns></returns>
     bool WaitingForPhysicsToSettle()
     {
-        return true;  // Replace this
+        bool allStop = false;
+        foreach (Transform child in targets.transform)
+        {
+            if (IsActive(child.gameObject) | IsActive(myRigidBody))
+            {
+                allStop = true;
+                break;
+            }
+        }
+        return allStop;  // Replace this
     }
 
     /// <summary>
     /// Initialize component
     /// </summary>
-    internal void Start() {
+    internal void Start()
+    {
         myRigidBody = GetComponent<Rigidbody2D>();
         springJoint = GetComponent<SpringJoint2D>();
+        targets = GameObject.Find("Targets");
         springAttachmentPoint = transform.position;
     }
 
     internal void Update()
     {
         FireControl();
+        if (Input.GetKeyDown(KeyCode.Escape) | (firingState == FiringState.Firing & !WaitingForPhysicsToSettle()))
+        {
+            ResetForFiring();
+        }
     }
 
     /// <summary>
@@ -131,7 +149,8 @@ public class ProjectileThrower : MonoBehaviour {
         }
     }
 
-    void MoveProjectileToMousePosition() {
+    void MoveProjectileToMousePosition()
+    {
         // find where the mouse is, and convert that to world coordinates
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var offset = Vector3.ClampMagnitude(mousePos - transform.position, 5f); // find the difference and clamp its magnitude
