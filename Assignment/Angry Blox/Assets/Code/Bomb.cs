@@ -11,11 +11,15 @@ public class Bomb : MonoBehaviour
 
     private void Boom()
     {
-        // TODO:
+        GetComponent<PointEffector2D>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity, transform.parent);
+        Invoke("Destruct", 0.1f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // TODO:
+        if (collision.relativeVelocity.magnitude > ThresholdForce)
+            Boom();
     }
 }
