@@ -1,0 +1,6 @@
+Sprites/SoccerBall.png [CC0 1.0] https://opengameart.org/content/soccer-ball
+Sprites/background.png [Pixabay License] https://pixabay.com/vectors/soccer-soccer-field-football-145794/
+Sprites/enemy.png [CC0 1.0] https://opengameart.org/content/detective
+Sprites/player.png [CC0 1.0] https://opengameart.org/content/hero-spritesheets-ars-notoria
+Sounds/loss.wav [CC0 1.0] https://freesound.org/people/Raclure/sounds/483598/
+Sounds/win.wav [CC BY 3.0] https://freesound.org/people/rhodesmas/sounds/320655/
