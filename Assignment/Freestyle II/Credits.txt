@@ -1,0 +1,7 @@
+Sprites/plane1.png [CC BY 3.0] https://creativecommons.org/licenses/by/3.0/
+Sprites/plane2.png [CC BY 3.0] https://creativecommons.org/licenses/by/3.0/
+Sprites/plane3.png [CC BY 3.0] https://creativecommons.org/licenses/by/3.0/
+Sprites/plane4.png [GPL 3.0] https://opengameart.org/content/spaceship-1
+Sprites/explosion.png [CC0] https://opengameart.org/content/fiery-explosion
+Sprites/bullet.png [CC0] https://opengameart.org/content/spaceship-bullet
+Sprites/space.png [CC BY 4.0] https://opengameart.org/content/space-star-background
