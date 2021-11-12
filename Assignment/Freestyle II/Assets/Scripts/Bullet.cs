@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,16 +7,5 @@ public class Bullet : MonoBehaviour
     void OnBecameInvisible()
     {
         Destroy(gameObject);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (collision.collider.name != "Bullet(Clone)" && !FirstHit)
-        //{
-        //    FirstHit = true;
-        //    Destroy(gameObject);
-        //    Destroy(collision.collider.gameObject);
-        //    ScoreKeeper.ScorePoints(1);
-        //}
     }
 }

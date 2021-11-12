@@ -1,18 +1,15 @@
-Football
+Space Fight
 
 - What all the objects on screen are:
 	- Main Camera
-	- Canvas - Score: Display player's score.
-	- Canvas - Time: Display remining time for the game.
-	- Canvas - Summary - Display game result when time is up.
+	- Canvas - Text: Display player's score and remining time for the game.
+	- Canvas - Ending - Display game result when time is up.
 	- EvenSystem
-	- Background: Background of the game (soccer field sprite).
-	- Ball: the soccer ball sprite
+	- Background: Background of the game.
 	- Player: Sprite of the player
-	- Enemy: moving object of the defense team.
-	- Wall: invisible wall suring the soccer field.
-	- Winning: invisible wall on enemy's goal. 
-	- Lossing: invisible wall on player's goal. 
+	- Enemy: moving object to attack player.
+	- Wall: invisible wall prevent enemy fly off screen.
+	- Bullet: 
 
 - What their behavior is supposed to be:
 	- Ball: The ball will be able to be hit by the player.
