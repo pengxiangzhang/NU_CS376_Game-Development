@@ -6,3 +6,4 @@ Sprites/explosion.png [CC0] https://opengameart.org/content/fiery-explosion
 Sprites/bullet.png [CC0] https://opengameart.org/content/spaceship-bullet
 Sprites/space.png [CC BY 4.0] https://opengameart.org/content/space-star-background
 Sounds/explosion.mp3 [CC0 1.0] https://freesound.org/people/derplayer/sounds/587195/
+Sounds/fire.mp3 [CC0 1.0] https://freesound.org/people/colorsCrimsonTears/sounds/566200/

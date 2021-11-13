@@ -1,0 +1,31 @@
+Space Fight
+
+- What all the objects on the screen are:
+	- Main Camera
+	- Canvas - Text: Display player's score and the remaining time for the game.
+	- Canvas - Ending - Display game result when time is up.
+	- Background: Background of the game.
+	- Player: Sprite of the player
+	- Enemy: moving object to attack the player.
+	- Wall: an invisible wall that prevents enemies from flying off-screen.
+	- Bullet: Player will be able to fire bullets when needed. 
+
+- What their behavior is supposed to be:
+	- Enemy: It will generate an enemy every few seconds and move down with an accelerated speed. 
+	- Player: Player will be able to move around and fire bullets. 
+	- Bullet: When the user fire, a bullet will be generated and fly toward the position that the player is facing. 
+
+- What the player's controls are:
+	- Player will be able to control the game by using keys on the keyboard.
+		- To move up using: "W" or "↑"
+		- To move down using: "S" or "↓"
+		- To move left using: "A" or "←"
+		- To move up using: "D" or "→"
+
+- How the player scores:
+	- Try to use the bullet to destroy enemies.
+
+- How the game ends:
+	- The game will end after the countdown ends at the top right corner(30 seconds).
+	- The game will also end if the player collides with the enemy or the enemy reaches the screen's end.
+	- A ending message will be shown, indicating the game is ended and the number of points the player gets.

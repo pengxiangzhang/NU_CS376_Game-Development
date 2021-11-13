@@ -1,0 +1,54 @@
+11-10-2021 5:59 pm: 
+	- Primary design is to have the game generate an enemy plane every few seconds, and the player will fire to destroy that.
+	- Aesthetic goals:
+		- Sensation: Let the player able feel they are actually flying the plane and firing bullets. If the plane can be bent while moving would be a success. If the plane is just moving without any motion would be a failure.
+		 - Challenge: Let the player feel challenged when they play the game, making the game that they cannot win easily. If the player faces some challenges, it would be a success. If the player can win easily, it would be a failure.
+	- Core loop: The player will spend most of the time moving around and firing a bullet to destroy enemies that are generated every few seconds. I can easily accomplish the Challenge goal to speed up the generation of the enemy. I can also accomplish the Sensation goal by changing spite when moving left and right.
+
+11-10-2021 7:59 pm: 
+	- Research online and was able to find sprite for bullet, plane, and background. Able to find some sound effects for score and firing bullet.
+	- Added background to the game.
+	- Allow players to move around.
+
+
+11-10-2021 8:20 pm: 
+	- Bug fix to prevent player move off screen. 
+	- Allow player to fire bullet.
+
+11-10-2021 9:00 pm: 
+	- Create enemy prefeb.
+	- Let emeny to move down with a accelerated speed. 
+	- Generate enemy at random location.
+
+11-11-2021 8:00 pm: 
+	- Add time tracker.
+	- Add score tracker.
+
+11-11-2021 8:15 pm:
+	- Able to display score and time on screen and show ending message.
+
+11-11-2021 8:15 pm:
+	- Able to change sprite when player move left and right. 
+	- Add sound effect when the player fire bullet.
+
+11-12-2021 4:15 pm:
+	- Add explosion prefab, when a bullet hits the enemy, player collides with enemy or enemy hit the end of the screen.
+	- Add sound effects when generating explosion prefab.
+
+11-12-2021 4:45 pm:
+	- Remove bullet when a bullet is invisible on-screen. 
+	- Bugfix for sound effect delay on firing bullet to move the sound effect to play when generating the prefab instead of playing it using script.
+
+11-13-2021 5:10 pm:
+	- Accelerate the rate to create an enemy to create more challenges for the player. 
+	- Postmortem
+		- Summarize what you originally set out to do: I intend to build a game that allows players to fire bullets toward the enemy. 
+		- Summarize what your goals ended up being by the end: I was able to accomplish the goal I set before.
+		- Summarize what you accomplished of those goals: I was able to let the plane bent while moving, and I was able to let the game be a challenge.
+		- What went right: The game was built without any major issue, and bugs have been fixed.
+		- What went wrong: There is still a small delay on audio when I let the audio play.
+		- What do you wish you knew at the start of the project that you know now: There is a delay when playing audio. And the way to prevent palyer from moving off-screen.
+		- What did you learn in the process: Throughout the process, it let me able to build the game easier than before. In other word, I get to know more about how to build a Unity game. 
+
+11-13-2021 5:28 pm:
+	- Zip up files and hand in the assignment. 
