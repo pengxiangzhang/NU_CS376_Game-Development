@@ -151,6 +151,7 @@ public class PlayerControl : MonoBehaviour
         yaw = roll * RotationalSpeed * Time.fixedDeltaTime;
         Quaternion yawMovement = Quaternion.Euler(new Vector3(Mathf.Lerp(oldPitch, pitch, t),
             Mathf.Lerp(oldYaw, yaw, t), Mathf.Lerp(oldRoll, roll, t)) * Time.fixedDeltaTime);
+        //Quaternion yawMovement = Quaternion.Euler(new Vector3(pitch, yaw, roll* Time.fixedDeltaTime));
         playerRB.MoveRotation(playerRB.rotation * yawMovement);
     }
 
@@ -179,6 +180,15 @@ public class PlayerControl : MonoBehaviour
         playerRB.AddForce(f_drag);
 
         Vector3 vUp = Vector3.Scale(v_rel, y_loc);
+
+        LayerMask updraft = LayerMask.GetMask("Updrafts");
+        Collider[] updraftCollide = Physics.OverlapSphere(transform.position, 1f, updraft);
+        Updraft updraftClass = gameObject.AddComponent<Updraft>();
+        foreach (var collide in updraftCollide)
+        {
+            vUp += updraftClass.WindVelocity;
+        }
+
         Vector3 sgn_vUp = new Vector3(Math.Sign(vUp.x), Math.Sign(vUp.y), Math.Sign(vUp.z));
         Vector3 v_drag = VerticalDragCoefficient * Vector3.Scale(sgn_vUp, Vector3.Scale(Vector3.Scale(vUp, vUp), y_loc));
         playerRB.AddForce(v_drag);
@@ -186,7 +196,7 @@ public class PlayerControl : MonoBehaviour
 
     void OnCollisionEnter(Collision collide)
     {
-        var landing = new LandingPlatform();
+        LandingPlatform landing = gameObject.AddComponent<LandingPlatform>();
         if (collide.gameObject.name == "LandingPlatform" && collide.relativeVelocity.magnitude < landing.MaxLandingSpeed)
             OnGameOver(true);
         else
