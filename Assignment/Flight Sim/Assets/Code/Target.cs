@@ -21,4 +21,12 @@ public class Target : MonoBehaviour {
     internal void Update() {
         transform.Rotate(SpinVector * SpinSpeed * Time.deltaTime);
     }
+    void OnTriggerEnter(Collider collide)
+    {
+        if (collide.gameObject.name == "Player")
+        {
+            ScoreManager.IncreaseScore(collide.gameObject, ScoreValue);
+            Destroy(gameObject);
+        }
+    }
 }

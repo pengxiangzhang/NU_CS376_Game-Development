@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Control code for the the player's game object.
 /// Very approximate simulation of flight dynamics.
 /// </summary>
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour
+{
     /// <summary>
     /// Coefficient of draft for head winds
     /// </summary>
@@ -77,27 +79,32 @@ public class PlayerControl : MonoBehaviour {
     /// Current thrust (forward force provided by engines
     /// </summary>
     private float thrust;
-#endregion
+    #endregion
 
     /// <summary>
     /// Initialize component
     /// </summary>
-    internal void Start() {
+    internal void Start()
+    {
         playerRB = GetComponent<Rigidbody>();
-        playerRB.velocity = transform.forward*3;
+        playerRB.velocity = transform.forward * 3;
     }
 
     /// <summary>
     /// Show game-over display
     /// </summary>
     /// <param name="safe">True if we won, false if we crashed</param>
-    private void OnGameOver(bool safe) {
+    private void OnGameOver(bool safe)
+    {
         playerRB.velocity = Vector3.zero;
         playerRB.useGravity = false;
         playerRB.constraints = RigidbodyConstraints.FreezeAll;
-        if (safe) {
+        if (safe)
+        {
             GameOverText.text = "You Win!";
-        } else {
+        }
+        else
+        {
             GameOverText.text = "OOPS";
         }
     }
@@ -111,5 +118,78 @@ public class PlayerControl : MonoBehaviour {
             playerRB.velocity.magnitude,
             transform.position.y,
             thrust);
+    }
+
+    void FixedUpdate()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        float inputThrust = Input.GetAxis("Thrust");
+        Steering(horizontal, vertical);
+        Thrust(inputThrust);
+        Aerodynamics();
+    }
+    void Steering(float horizontal, float vertical)
+    {
+        float oldRoll = roll;
+        float oldPitch = pitch;
+        float oldYaw = yaw;
+        float t = 0.01f;
+        if (roll + horizontal > RollRange)
+            roll = RollRange;
+        else if (roll + horizontal < -RollRange)
+            roll = -RollRange;
+        else
+            roll += horizontal;
+
+        if (pitch + vertical > PitchRange)
+            pitch = PitchRange;
+        else if (pitch + vertical < -PitchRange)
+            pitch = -PitchRange;
+        else
+            pitch += vertical;
+        yaw = roll * RotationalSpeed * Time.fixedDeltaTime;
+        Quaternion yawMovement = Quaternion.Euler(new Vector3(Mathf.Lerp(oldPitch, pitch, t),
+            Mathf.Lerp(oldYaw, yaw, t), Mathf.Lerp(oldRoll, roll, t)) * Time.fixedDeltaTime);
+        playerRB.MoveRotation(playerRB.rotation * yawMovement);
+    }
+
+    void Thrust(float inputThrust)
+    {
+        thrust += inputThrust;
+        if (thrust > MaximumThrust)
+            thrust = MaximumThrust;
+        else if (thrust < 0)
+            thrust = 0;
+        playerRB.AddForce(thrust * transform.forward);
+    }
+    void Aerodynamics()
+    {
+        Vector3 x_loc = transform.right;
+        Vector3 y_loc = transform.up;
+        Vector3 z_loc = transform.forward;
+
+        Vector3 v_rel = -playerRB.velocity;
+        Vector3 v_forward = Vector3.Scale(v_rel, z_loc);
+        Vector3 f_lift = LiftCoefficient * Vector3.Scale(Vector3.Scale(v_forward, v_forward), y_loc);
+        playerRB.AddForce(f_lift);
+
+        Vector3 sgn_VF = new Vector3(Math.Sign(v_forward.x), Math.Sign(v_forward.y), Math.Sign(v_forward.z));
+        Vector3 f_drag = ForwardDragCoefficient * Vector3.Scale(sgn_VF, Vector3.Scale(Vector3.Scale(v_forward, v_forward), z_loc));
+        playerRB.AddForce(f_drag);
+
+        Vector3 vUp = Vector3.Scale(v_rel, y_loc);
+        Vector3 sgn_vUp = new Vector3(Math.Sign(vUp.x), Math.Sign(vUp.y), Math.Sign(vUp.z));
+        Vector3 v_drag = VerticalDragCoefficient * Vector3.Scale(sgn_vUp, Vector3.Scale(Vector3.Scale(vUp, vUp), y_loc));
+        playerRB.AddForce(v_drag);
+    }
+
+    void OnCollisionEnter(Collision collide)
+    {
+        var landing = new LandingPlatform();
+        if (collide.gameObject.name == "LandingPlatform" && collide.relativeVelocity.magnitude < landing.MaxLandingSpeed)
+            OnGameOver(true);
+        else
+            OnGameOver(false);
     }
 }
