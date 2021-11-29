@@ -122,8 +122,8 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
         float inputThrust = Input.GetAxis("Thrust");
         Steering(horizontal, vertical);
         Thrust(inputThrust);
@@ -157,11 +157,12 @@ public class PlayerControl : MonoBehaviour
 
     void Thrust(float inputThrust)
     {
-        thrust += inputThrust;
-        if (thrust > MaximumThrust)
-            thrust = MaximumThrust;
-        else if (thrust < 0)
+        if (inputThrust < 0)
             thrust = 0;
+        else if (inputThrust > 1)
+            thrust = MaximumThrust;
+        else
+            thrust = inputThrust * MaximumThrust;
         playerRB.AddForce(thrust * transform.forward);
     }
     void Aerodynamics()
